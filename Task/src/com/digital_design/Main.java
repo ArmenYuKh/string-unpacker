@@ -21,10 +21,20 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        System.out.println("Введите строку, которую необходимо распаковать:");
-        String str = in.nextLine();
         Handler handler = new Handler();
-        if (handler.isValid(str)) System.out.println("Результат распаковки строки: \n" + handler.get(str));
-        else System.out.println("Входная строка невалидна! Перезапустите программу и попробуйте снова.");
+        while (true) {
+            System.out.println("Введите строку, которую необходимо распаковать, или нажмите ENTER для выхода из программы:");
+            String str = in.nextLine();
+            if (str.equals("")) {
+                System.err.println("Программа прервана пользователем!\n");
+                return;
+            }
+            System.out.println
+                    (handler.isValid(str)
+                            ? "Результат распаковки строки: \n" + handler.transform(str) + "\n"
+                            : "Входная строка невалидна! Попробуйте снова!\n"
+                    );
+        }
+
     }
 }

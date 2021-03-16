@@ -22,7 +22,7 @@ class Handler {
         return result;
     }
 
-    String get(String str) {
+    String transform(String str) {
         // определяем шаблон, по которому будем находить строку вида число[строка]
         String regex = "\\d+\\[[a-zA-Z]+]";
         Pattern p1 = Pattern.compile(regex);
@@ -78,13 +78,5 @@ class Handler {
 
         if (numBracket && bracketCnt && !letterBrackets && validCharacters) valid = true;
         return valid;
-    }
-
-    boolean isValid2(String str) {
-        // Проверяем на валидность - соответствие строки шаблону
-        Pattern p1 = Pattern.compile("([a-z]*)(\\d+\\[((\\d+\\[[a-z]+])*)([a-z]+)((\\d+\\[[a-z]+])*)])*([a-z]*)", Pattern.CASE_INSENSITIVE);
-        Matcher m1 = p1.matcher(str);
-        // соответствие строки шаблону - возвращаем булево значение
-        return m1.matches();
     }
 }
