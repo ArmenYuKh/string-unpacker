@@ -24,14 +24,14 @@ class Handler {
     String transform(String str) {
         // определяем шаблон, по которому будем находить строку вида число[строка]
         String regex = "\\d+\\[[a-zA-Z]+]";
-        Pattern p1 = Pattern.compile(regex);
-        Matcher m1 = p1.matcher(str);
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
         // найденные по шаблону строки распаковываем, а затем
         // заменяем в исходной строке все вхождения строки вида число[строка] на распакованные
-        while (m1.find()) {
-            StringBuilder replacement = multiplyValues(m1.group());
-            str = str.replace(m1.group(), replacement);
-            m1 = p1.matcher(str);
+        while (matcher.find()) {
+            StringBuilder replacement = multiplyValues(matcher.group());
+            str = str.replace(matcher.group(), replacement);
+            matcher = pattern.matcher(str);
         }
         return str;
     }
