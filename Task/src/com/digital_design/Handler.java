@@ -7,17 +7,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Handler {
-    private String multiplyValues(String str) {
+    private StringBuilder multiplyValues(String str) {
+        String[] strings = str.split("[\\[\\]]");
         // определяем число повторений
-        String[] strings = str.split("\\[");
         int count = Integer.parseInt(strings[0]);
         // определяем повторяемую величину
-        String[] chars = strings[1].split("]");
-        String multipliedValue = chars[0];
+        String multipliedValue = strings[1];
         // распаковываем строку
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < count; i++) {
-            result = result.concat(multipliedValue);
+            result.append(multipliedValue);
         }
         return result;
     }
