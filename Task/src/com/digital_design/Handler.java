@@ -29,7 +29,7 @@ class Handler {
         // найденные по шаблону строки распаковываем, а затем
         // заменяем в исходной строке все вхождения строки вида число[строка] на распакованные
         while (m1.find()) {
-            String replacement = multiplyValues(m1.group());
+            StringBuilder replacement = multiplyValues(m1.group());
             str = str.replace(m1.group(), replacement);
             m1 = p1.matcher(str);
         }
