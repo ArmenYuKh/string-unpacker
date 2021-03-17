@@ -93,8 +93,8 @@ class Handler {
         for (int i = 0; i < str.length(); i++) {
             chars.add(arr[i]);
         }
-        char tmpPrev = 0;
-        char tmpNext = 0;
+        char tmpFirst = 0;
+        char tmpLast = 0;
         ListIterator<Character> characterListIterator2 = chars.listIterator(1);
         for (int i = 1; i < chars.size(); i++) {
             if (characterListIterator2.hasNext()) {
@@ -121,10 +121,10 @@ class Handler {
 
                 // не могут быть скобки, перед которыми нет числа и внутри которых исключительно буквы
                 if (i == 1)
-                    tmpPrev = previousChar;
+                    tmpFirst = previousChar;
                 if (i == chars.size() - 1)
-                    tmpNext = nextChar;
-                if (tmpPrev == '[' && tmpNext == ']')
+                    tmpLast = nextChar;
+                if (tmpFirst == '[' && tmpLast == ']')
                     return false;
             }
         }
