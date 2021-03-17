@@ -29,7 +29,8 @@ public class Main {
                 System.err.println("Программа прервана пользователем!\n");
                 return;
             }
-            if (handler.isValid(str))
+//            if (handler.isValid(str))
+            if (handler.isValid2(str))
                 System.out.println("Результат распаковки строки: \n" + handler.transform(str) + "\n");
             else
                 System.err.println("Входная строка невалидна! Попробуйте снова!\n");
