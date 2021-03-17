@@ -31,7 +31,8 @@ public class Main {
             }
             if (handler.isValid(str))
                 System.out.println("Результат распаковки строки: \n" + handler.transform(str) + "\n");
-            else System.err.println("Входная строка невалидна! Попробуйте снова!\n");
+            else
+                System.err.println("Входная строка невалидна! Попробуйте снова!\n");
         }
     }
 }

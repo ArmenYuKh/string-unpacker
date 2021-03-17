@@ -1,8 +1,5 @@
 package com.digital_design;
 
-import java.io.ByteArrayInputStream;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,7 +46,7 @@ class Handler {
         boolean numBracket = true; // для определения того, после числа повторений всегда ли идет '['
         boolean bracketCnt = false; // для определения равенства количества скобок
         boolean letterBracket = false; // для определения того, не идёт ли после латинских букв '['
-        boolean validCharacters = true; // для опредлеения допустимых символов на вход
+        boolean validCharacters = false; // для опредлеения допустимых символов на вход
         boolean emptyBrackets = false; // для определения того, не пустое ли выражение в квадратных скобках
         boolean onlyDigits = false; // для определения того, что не исключительно цифры внутри квадратных скобок
 
@@ -64,8 +61,9 @@ class Handler {
             onlyDigits = true;
         }
 
-        // определяем, всегда ли после числа повторений идёт '[' (идём от противного)
-        String regex2 = "(\\d+[a-zA-Z]+)|(\\d+]+)|(\\d+]+)|(\\d$+)";
+        // определяем, всегда ли после числа повторений идёт '[' (идём от противного, т.е. проверяем, что нет выражений типа
+        // 'числоБуква', 'число]' или число на конце строки)
+        String regex2 = "(\\d+[a-zA-Z]+)|(\\d+]+)|(\\d$+)";
         Pattern pattern2 = Pattern.compile(regex2);
         Matcher matcher2 = pattern2.matcher(str);
         while (matcher2.find()) {
@@ -87,30 +85,29 @@ class Handler {
         while (matcher4.find()) {
             emptyBrackets = true;
         }
-
-        byte[] arr = str.getBytes();
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(arr);
-
-        List<Character> list = new LinkedList<>();
-        int bracket1Cnt = 0; // количество открывающих скобок
-        int bracket2Cnt = 0; // количество закрывающих скобок
+        int balance = 0; // количество скобок
         int tmp;
-        while ((tmp = byteArrayInputStream.read()) != -1) {
-            if ((char) tmp == '[') bracket1Cnt++;
-            if ((char) tmp == ']') bracket2Cnt++;
-            list.add((char) tmp);
+        char[] arr = str.toCharArray();
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == '[')
+                balance++;
+            if (arr[i] == ']')
+                balance--;
         }
+
         // определяем все допустимые символы на вход
-        for (Character character : list) {
-            if (!Character.isLetter(character) && !Character.isDigit(character) && !character.equals('[') && !character.equals(']')) {
-                validCharacters = false;
+        for (Character character : arr) {
+            if (Character.isLetter(character) || Character.isDigit(character) || character.equals('[') || character.equals(']')) {
+                validCharacters = true;
             }
         }
         // определяем равенство количества открывающих и закрывающих скобок
-        if (bracket1Cnt == bracket2Cnt) bracketCnt = true;
+        if (balance == 0)
+            bracketCnt = true;
 
         // определяем валидность строки с учётом всех критериев
-        if (numBracket && bracketCnt && !letterBracket && validCharacters && !emptyBrackets && !onlyDigits) valid = true;
+        if (numBracket && bracketCnt && !letterBracket && validCharacters && !emptyBrackets && !onlyDigits)
+            valid = true;
         return valid;
     }
 }
