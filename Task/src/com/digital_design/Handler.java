@@ -26,8 +26,9 @@ class Handler {
         // найденные по шаблону строки распаковываем, а затем
         // заменяем в исходной строке все вхождения строки вида число[строка] на распакованные
         while (matcher.find()) {
-            StringBuilder replacement = multiplyValues(matcher.group());
-            str = str.replace(matcher.group(), replacement);
+            String subString = matcher.group();
+            StringBuilder replacement = multiplyValues(subString);
+            str = str.replace(subString, replacement);
             matcher = pattern.matcher(str);
         }
         return str;
@@ -59,7 +60,7 @@ class Handler {
         if (matcher.find())
             return false;
         int balance = 0; // разность открывающих и закрывающих скобок
-        int bracketCnt = 0; // количество скобок
+        boolean hasBracket = false; // обнаружены ли скобки
         char[] arr = str.toCharArray();
         // определяем все допустимые символы на вход
         for (char c : arr) {
@@ -68,14 +69,14 @@ class Handler {
             }
             if (c == '[') {
                 balance++;
-                bracketCnt++;
+                hasBracket = true;
             }
             if (c == ']') {
                 balance--;
-                bracketCnt++;
+                hasBracket = true;
             }
         }
         // определяем равенство количества открывающих и закрывающих скобок, а также то, имеются ли в принципе скобки
-        return balance == 0 && bracketCnt != 0;
+        return balance == 0 && hasBracket;
     }
 }
