@@ -88,19 +88,17 @@ class Handler {
         int balance = 0; // количество скобок
         int tmp;
         char[] arr = str.toCharArray();
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == '[')
+        // определяем все допустимые символы на вход
+        for (char c : arr) {
+            if (Character.isLetter(c) || Character.isDigit(c) || c == '[' || c == ']') {
+                validCharacters = true;
+            }
+            if (c == '[')
                 balance++;
-            if (arr[i] == ']')
+            if (c == ']')
                 balance--;
         }
 
-        // определяем все допустимые символы на вход
-        for (Character character : arr) {
-            if (Character.isLetter(character) || Character.isDigit(character) || character.equals('[') || character.equals(']')) {
-                validCharacters = true;
-            }
-        }
         // определяем равенство количества открывающих и закрывающих скобок
         if (balance == 0)
             bracketCnt = true;
