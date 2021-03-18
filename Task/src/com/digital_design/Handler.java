@@ -37,7 +37,7 @@ class Handler {
         return str;
     }
 
-    // Метод 1 проверки валидации
+    // Метод 1 проверки валидности
     boolean isValid(String str) {
         // Критерии для определения валидности
         // 1) после числа повторений всегда идет '['
@@ -86,7 +86,7 @@ class Handler {
         return balance == 0 && hasBracket;
     }
 
-    // Метод 2 проверки валидации
+    // Метод 2 проверки валидности
     boolean isValid2(String str) {
         char[] arr1 = str.toCharArray();
         List<Character> chars = new LinkedList<>();
