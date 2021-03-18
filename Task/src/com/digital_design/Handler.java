@@ -88,19 +88,19 @@ class Handler {
 
     // Метод 2 проверки валидации
     boolean isValid2(String str) {
-        char[] arr = str.toCharArray();
+        char[] arr1 = str.toCharArray();
         List<Character> chars = new LinkedList<>();
         for (int i = 0; i < str.length(); i++) {
-            chars.add(arr[i]);
+            chars.add(arr1[i]);
         }
         char tmpFirst = 0;
         char tmpLast = 0;
-        ListIterator<Character> characterListIterator2 = chars.listIterator(1);
+        ListIterator<Character> characterListIterator = chars.listIterator(1);
         for (int i = 1; i < chars.size(); i++) {
-            if (characterListIterator2.hasNext()) {
-                char previousChar = characterListIterator2.previous();
-                characterListIterator2.next();
-                char nextChar = characterListIterator2.next();
+            if (characterListIterator.hasNext()) {
+                char previousChar = characterListIterator.previous();
+                characterListIterator.next();
+                char nextChar = characterListIterator.next();
                 // определяем, всегда ли после цифры идёт либо цифра, либо '['
                 if (Character.isDigit(previousChar) && (!Character.isDigit(nextChar) && nextChar != '[')) {
                     return false;
@@ -131,7 +131,6 @@ class Handler {
 
         int balance1 = 0; // разность открывающих и закрывающих скобок
         boolean hasBracket1 = false; // обнаружены ли скобки
-        char[] arr1 = str.toCharArray();
         // определяем все допустимые символы на вход
         for (char c : arr1) {
             if ((!Character.isLetter(c)) && (!Character.isDigit(c)) && (c != '[') && (c != ']')) {
